@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5 Multimedia API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HTML5 Multimedia API Example</h1>
+
+    <!-- Audio Section -->
+    <h2>Audio Example</h2>
+    <audio id="audioPlayer" controls>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="controls">
+        <button onclick="playAudio()">Play Audio</button>
+        <button onclick="pauseAudio()">Pause Audio</button>
+        <button onclick="changeVolume('audio', 0.5)">Set Audio Volume to 50%</button>
+        <button onclick="muteAudio()">Mute Audio</button>
+    </div>
+
+    <br><br>
+
+    <!-- Video Section -->
+    <h2>Video Example</h2>
+    <video id="videoPlayer" width="640" height="360" controls>
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        Your browser does not support the video element.
+    </video>
+
+    <div class="controls">
+        <button onclick="playVideo()">Play Video</button>
+        <button onclick="pauseVideo()">Pause Video</button>
+        <button onclick="changeVolume('video', 0.5)">Set Video Volume to 50%</button>
+        <button onclick="toggleFullscreen()">Toggle Fullscreen</button>
+    </div>
+
+    <script>
+        // Get audio and video players
+        const audioPlayer = document.getElementById("audioPlayer");
+        const videoPlayer = document.getElementById("videoPlayer");
+
+        // Audio Controls
+        function playAudio() {
+            audioPlayer.play();
+        }
+
+        function pauseAudio() {
+            audioPlayer.pause();
+        }
+
+        function changeVolume(type, volume) {
+            const player = type === 'audio' ? audioPlayer : videoPlayer;
+            player.volume = volume;
+        }
+
+        function muteAudio() {
+            audioPlayer.muted = !audioPlayer.muted;
+        }
+
+        // Video Controls
+        function playVideo() {
+            videoPlayer.play();
+        }
+
+        function pauseVideo() {
+            videoPlayer.pause();
+        }
+
+        function changeVideoVolume(volume) {
+            videoPlayer.volume = volume;
+        }
+
+        function toggleFullscreen() {
+            if (videoPlayer.requestFullscreen) {
+                videoPlayer.requestFullscreen();
+            } else if (videoPlayer.mozRequestFullScreen) { // Firefox
+                videoPlayer.mozRequestFullScreen();
+            } else if (videoPlayer.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                videoPlayer.webkitRequestFullscreen();
+            } else if (videoPlayer.msRequestFullscreen) { // IE/Edge
+                videoPlayer.msRequestFullscreen();
+            }
+        }
+
+        // Event listeners for audio and video
+        audioPlayer.addEventListener('play', function() {
+            console.log("Audio is playing...");
+        });
+
+        videoPlayer.addEventListener('play', function() {
+            console.log("Video is playing...");
+        });
+
+        audioPlayer.addEventListener('pause', function() {
+            console.log("Audio is paused.");
+        });
+
+        videoPlayer.addEventListener('pause', function() {
+            console.log("Video is paused.");
+        });
+
+        audioPlayer.addEventListener('volumechange', function() {
+            console.log("Audio volume changed to: " + audioPlayer.volume);
+        });
+
+        videoPlayer.addEventListener('volumechange', function() {
+            console.log("Video volume changed to: " + videoPlayer.volume);
+        });
+    </script>
+
+</body>
+</html>
